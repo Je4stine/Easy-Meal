@@ -9,4 +9,8 @@
     <string name="what_would_you_like_to_eat">What would you like to eat?</string>
     <string name="popuplar_dishes">Popuplar Dishes</string>
     <string name="category">Category</string>
+    <string name="cat3">Category</string>
+    <string name="area">Area</string>
+    <string name="instructions">- Instructions:</string>
+    <string name="the_actual_instructions">The actual Instructions</string>
 </resources>

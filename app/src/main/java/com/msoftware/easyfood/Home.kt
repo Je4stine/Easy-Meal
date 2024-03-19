@@ -1,12 +1,15 @@
 package com.msoftware.easyfood
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -22,6 +25,13 @@ import retrofit2.Response
 class Home : Fragment() {
     private lateinit var homeMvvm: HomeViewModel
 
+    companion object
+    {
+        const val MEAL_ID = "EasyID"
+        const val MEAL_NAME = "EasyNAME"
+        const val MEAL_THUMB = "EasyTHUMB"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,11 +46,22 @@ class Home : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        view.findViewById<CardView>(R.id.cardRandom)?.setOnClickListener {
+            Toast.makeText(activity, "Clicked", Toast.LENGTH_LONG).show()
+            val intent = Intent(activity, MealActivity::class.java)
+            startActivity(intent)
+        }
+
+
         homeMvvm.getRandomMeal()
         observerRandomMeal()
 
+
         return view
     }
+
+
 
     private fun observerRandomMeal() {
         homeMvvm.observeRandom().observe(viewLifecycleOwner, object : Observer<Meal>{
