@@ -20,6 +20,8 @@
             app:contentScrim="@color/accent"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:title="Meal Name"
+            app:collapsedTitleTextAppearance="@font/poppins_bold"
+            app:expandedTitleTextAppearance="@font/poppins_bold"
             >
 
             <ImageView
@@ -74,19 +76,21 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/tvDCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cat3"
                     android:fontFamily="@font/poppins_bold"
-                    android:drawableLeft="@drawable/baseline_category_24"
+                    android:drawableStart="@drawable/baseline_category_24"
                     android:layout_weight="1"/>
 
                 <TextView
+                    android:id="@+id/tvDArea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/area"
                     android:fontFamily="@font/poppins_bold"
-                    android:drawableLeft="@drawable/baseline_location_on_24"
+                    android:drawableStart="@drawable/baseline_location_on_24"
                     android:layout_weight="1"/>
 
             </LinearLayout>
@@ -104,13 +108,16 @@
                 />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tvInstructions"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/the_actual_instructions"
-                app:layout_constraintStart_toStartOf="@id/tvInsta"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvInsta"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/poppins"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

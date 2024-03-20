@@ -94,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_120sdp"
                 android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/_20sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.08"
                 app:layout_constraintStart_toStartOf="parent"
@@ -125,8 +126,10 @@
                 >
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/categoryRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:scrollbars="none"/>
 
             </androidx.cardview.widget.CardView>
