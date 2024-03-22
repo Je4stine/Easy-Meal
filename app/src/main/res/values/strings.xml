@@ -14,4 +14,5 @@
     <string name="instructions">- Instructions:</string>
     <string name="the_actual_instructions">The actual Instructions</string>
     <string name="Chicken">Chicken</string>
+    <string name="meal_count">Meal Count</string>
 </resources>

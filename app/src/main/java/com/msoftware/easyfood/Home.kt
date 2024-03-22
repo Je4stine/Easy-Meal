@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,13 +20,7 @@ import com.bumptech.glide.Glide
 import com.msoftware.easyfood.adapters.CategoryAdapter
 import com.msoftware.easyfood.adapters.PopularMealAdapter
 import com.msoftware.easyfood.pojo.Meal
-import com.msoftware.easyfood.pojo.MealList
-import com.msoftware.easyfood.pojo.Popular
-import com.msoftware.easyfood.retrofit.RetrofitInstance
 import com.msoftware.easyfood.viewModel.HomeViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class Home : Fragment() {
@@ -93,8 +88,19 @@ class Home : Fragment() {
 
         onPopularItemClick()
 
+        onCategoryClicked()
+
 
         return view
+    }
+
+    private fun onCategoryClicked() {
+        categoryAdapter.onItemClicked = {category ->
+
+            val actions = HomeDirections.actionHome2ToMealDeatails2(category.strCategory)
+            findNavController().navigate(actions)
+
+        }
     }
 
     private fun observerCategory() {

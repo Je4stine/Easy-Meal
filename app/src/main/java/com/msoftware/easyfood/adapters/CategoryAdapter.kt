@@ -12,6 +12,8 @@ import com.msoftware.easyfood.pojo.Category
 
 class CategoryAdapter(): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
+    var onItemClicked : ((Category)-> Unit)? = null
+
     var categoryList = ArrayList<Category>()
     fun setData (categoryList: List<Category>){
         this.categoryList = categoryList as ArrayList<Category>
@@ -37,5 +39,9 @@ class CategoryAdapter(): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder
         Glide.with(holder.itemView.context)
             .load(categoryList[position].strCategoryThumb)
             .into(holder.itemView.findViewById(R.id.imageCategory))
+
+        holder.itemView.setOnClickListener {
+            onItemClicked!!.invoke(categoryList[position])
+        }
     }
 }

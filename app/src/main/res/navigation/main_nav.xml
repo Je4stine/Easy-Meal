@@ -9,7 +9,11 @@
         android:id="@+id/home2"
         android:name="com.msoftware.easyfood.Home"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home2_to_mealDeatails2"
+            app:destination="@id/mealDeatails2" />
+    </fragment>
     <fragment
         android:id="@+id/favourite"
         android:name="com.msoftware.easyfood.Favourite"
@@ -20,4 +24,16 @@
         android:name="com.msoftware.easyfood.Category"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/mealDeatails2"
+        android:name="com.msoftware.easyfood.CategoryDetails"
+        android:label="fragment_meal_deatails2"
+        tools:layout="@layout/fragment_category_deatails2" >
+        <action
+            android:id="@+id/action_mealDeatails2_to_home2"
+            app:destination="@id/home2" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+    </fragment>
 </navigation>
