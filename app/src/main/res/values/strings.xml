@@ -15,4 +15,5 @@
     <string name="the_actual_instructions">The actual Instructions</string>
     <string name="Chicken">Chicken</string>
     <string name="meal_count">Meal Count</string>
+    <string name="category_name">Category Name</string>
 </resources>
