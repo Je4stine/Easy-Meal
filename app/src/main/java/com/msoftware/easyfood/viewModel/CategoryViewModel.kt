@@ -24,7 +24,7 @@ class CategoryViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<PopularList>, t: Throwable) {
-                Log.d("Cateory List", t.message.toString())
+                Log.d("Category List", t.message.toString())
             }
 
         })
