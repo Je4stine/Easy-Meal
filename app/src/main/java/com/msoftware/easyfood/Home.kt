@@ -41,7 +41,8 @@ class Home : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        homeMvvm = ViewModelProvider(this@Home)[HomeViewModel::class.java]
+//        homeMvvm = ViewModelProvider(this@Home)[HomeViewModel::class.java]
+        homeMvvm = (activity as MainActivity).viewModel
 
 
     }

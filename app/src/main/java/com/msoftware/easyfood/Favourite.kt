@@ -5,55 +5,75 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.msoftware.easyfood.adapters.FavouritesAdapter
+import com.msoftware.easyfood.viewModel.HomeViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Favourite.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Favourite : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    lateinit var viewModel: HomeViewModel
+    lateinit var favouritesAdapter: FavouritesAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+        viewModel = (activity as MainActivity).viewModel
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourite, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_favourite, container, false)
+
+        favouritesAdapter = FavouritesAdapter()
+        val favRecycler = view?.findViewById<RecyclerView>(R.id.favRecycler)
+        favRecycler?.layoutManager  = GridLayoutManager(activity,  2, GridLayoutManager.VERTICAL, false)
+        favRecycler?.adapter = favouritesAdapter
+
+        observerFavourite()
+
+        val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
+            ){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ) = true
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                viewModel.deleteFromDb(favouritesAdapter.differ.currentList[position])
+
+                Snackbar.make(requireView(), "Item Deleted", Snackbar.LENGTH_LONG).setAction(
+                    "Undo", View.OnClickListener {
+                        viewModel.addToDb(favouritesAdapter.differ.currentList[position])
+                    }
+                ).show()
+            }
+
+        }
+
+        ItemTouchHelper(itemTouchHelper).attachToRecyclerView(view.findViewById(R.id.favRecycler))
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Favourite.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Favourite().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
+
+    private fun observerFavourite() {
+       viewModel.observedbLiveData().observe(viewLifecycleOwner, Observer {meals ->
+            favouritesAdapter.differ.submitList(meals)
+
+       })
     }
+    //requiredActivity
+
+
 }
